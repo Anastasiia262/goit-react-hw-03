@@ -1,11 +1,11 @@
 import { Component } from 'react';
 import { customAlphabet } from 'nanoid';
-import { GlobalStyle } from './componets/GlobalStyle'; 
-import { Container } from './componets/Container/Container.styled'; 
-import { ContactForm } from './componets/ContactForm/ContactForm';
-import { ContactList } from './componets/ContactList/ContactList';
-import { SearchBox } from './componets/SearchBox/SearchBox';
-import { Notification } from './componets/Notification/Notification';
+import { GlobalStyle } from './components/GlobalStyle';
+import { Container } from './components/Container/Container.styled';
+import { ContactForm } from './components/ContactForm/ContactForm';
+import { ContactList } from './components/ContactList/ContactList';
+import { SearchBox } from './components/SearchBox/SearchBox';
+import { Notification } from './components/Notification/Notification';
 
 const nanoid = customAlphabet('1234567890', 4);
 
@@ -14,6 +14,7 @@ export class App extends Component {
     contacts: [],
     filter: '',
   };
+
   componentDidMount() {
     const contacts = JSON.parse(localStorage.getItem('contacts'));
     if (contacts) {
@@ -21,13 +22,13 @@ export class App extends Component {
     }
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
   }
 
-  onFormSubmit = values => {
+  onFormSubmit = (values, { resetForm }) => {
     const contactExists = this.state.contacts.find(
       ({ name }) => name.toLowerCase() === values.name.toLowerCase()
     );
@@ -38,6 +39,7 @@ export class App extends Component {
     }
 
     this.addContact(values);
+    resetForm();
   };
 
   addContact = values => {
