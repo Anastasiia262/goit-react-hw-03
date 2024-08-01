@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Form, Field, ErrorMessage } from 'formik';
+import { Form, Field } from 'formik';
 
 export const ContactsForm = styled(Form)`
   width: 500px;
@@ -36,9 +36,11 @@ export const FormButton = styled.button`
 
 export const FormField = styled(Field)`
   padding: 5px;
+  border: 1px solid ${({ error }) => (error ? 'red' : '#ccc')};
+  border-radius: 5px;
 `;
 
-export const FormError = styled(ErrorMessage)`
+export const FormError = styled.div`
   color: #cb0000;
   font-size: 14px;
 `;

@@ -1,13 +1,26 @@
 import PropTypes from 'prop-types';
-import { Item, Button } from './Contact.styled';
+import { Item, Button, IconWrapper, Text } from './Contact.styled';
+import { FaUser, FaPhoneAlt } from 'react-icons/fa'; 
 
 export const ContactItem = ({ contact, onDeleteContact }) => {
   const { id, name, number } = contact;
+
   return (
     <Item>
-      <p>
-        {name}: {number}
-      </p>
+      <div>
+        <Text>
+          <IconWrapper>
+            <FaUser /> 
+          </IconWrapper>
+          <span>{name}</span>
+        </Text>
+        <Text>
+          <IconWrapper>
+            <FaPhoneAlt /> 
+          </IconWrapper>
+          <span>{number}</span>
+        </Text>
+      </div>
       <Button type="button" onClick={() => onDeleteContact(id)}>
         Delete
       </Button>
@@ -20,6 +33,6 @@ ContactItem.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
   onDeleteContact: PropTypes.func.isRequired,
 };
